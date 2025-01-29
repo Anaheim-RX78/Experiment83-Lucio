@@ -16,8 +16,13 @@ ACharacter83::ACharacter83()
 	
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
-
+	
 	LifeHandler = CreateDefaultSubobject<ULifeComponent>("LifeHandler");
+	Inventory = CreateDefaultSubobject<UInventory>("Inventory");
+	
+	Barrier = CreateDefaultSubobject<UStaticMeshComponent>("Barrier");
+	Barrier->SetupAttachment(RootComponent);
+	
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +30,8 @@ void ACharacter83::BeginPlay()
 {
 	Super::BeginPlay();
 	GetCharacterMovement()->AirControl = 1.f;
+	Barrier->SetHiddenInGame(true);
+	Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void ACharacter83::Tick(float DeltaTime)
@@ -39,6 +46,21 @@ void ACharacter83::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void ACharacter83::SetMovementInput(const FVector2D& MovementVector)
 {
-	AddMovementInput(GetActorForwardVector(), MovementVector.Y);
-	AddMovementInput(GetActorRightVector(), MovementVector.X);
+	SetActorLocation(GetActorLocation() + (MovementSpeed * (GetActorForwardVector() * MovementVector.Y) +(MovementSpeed * (GetActorRightVector() * MovementVector.X) )));
+	// AddMovementInput(GetActorForwardVector(), MovementVector.Y);
+	// AddMovementInput(GetActorRightVector(), MovementVector.X);
+}
+
+void ACharacter83::TurnOnBarrier()
+{
+	Barrier->SetHiddenInGame(false);
+	Barrier->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	IsBarrierUp = true;
+}
+
+void ACharacter83::TurnOffBarrier()
+{
+	Barrier->SetHiddenInGame(true);
+	Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	IsBarrierUp = false;
 }

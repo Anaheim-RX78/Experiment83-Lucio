@@ -24,6 +24,7 @@ void AController83::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	
 	EnhancedInputComponent->BindAction(InputMap->Actions["AirMove"], ETriggerEvent::Triggered, this, &AController83::AirMove);
+	EnhancedInputComponent->BindAction(InputMap->Actions["UseItem"], ETriggerEvent::Started, this, &AController83::UseItem);
 }
 
 void AController83::OnPossess(APawn* InPawn)
@@ -38,4 +39,9 @@ void AController83::OnPossess(APawn* InPawn)
 void AController83::AirMove(const FInputActionValue& Value)
 {
 	Character83->SetMovementInput(Value.Get<FVector2D>());
+}
+
+void AController83::UseItem(const FInputActionValue& Value)
+{
+	Character83->Inventory->UseItem();
 }

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Inventory.h"
 #include "LifeComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
@@ -34,14 +35,26 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	USpringArmComponent* SpringArm;
 
+	UPROPERTY(EditAnywhere, Category = "Barrier")
+	UStaticMeshComponent* Barrier;
+
 public:
 	virtual void Tick(float DeltaTime) override;
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void SetMovementInput(const FVector2D& MovementVector);
+	void TurnOnBarrier();
+	void TurnOffBarrier();
 
 	UPROPERTY(EditAnywhere, Category = "Life")
 	ULifeComponent* LifeHandler;
 
+	UPROPERTY(EditAnywhere, Category = "Items")
+	UInventory* Inventory;
+	
+	UPROPERTY(EditAnywhere, Category = "Barrier")
+	bool IsBarrierUp = false;
+
 };
+

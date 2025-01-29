@@ -37,4 +37,5 @@ void ADamager::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Other
 	{
 		Character->LifeHandler->Damage();
 	}
+	Destroy();
 }

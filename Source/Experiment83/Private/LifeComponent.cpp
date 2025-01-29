@@ -1,5 +1,7 @@
 #include "LifeComponent.h"
 
+#include "Character83.h"
+
 ULifeComponent::ULifeComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -16,8 +18,6 @@ void ULifeComponent::BeginPlay()
 void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Format(TEXT("IsInvincible, IsVisible, IsDamaged: {0}, {1}, {2}"), {IsInvincible, IsVisible, IsDamaged}));
 
 	if (!IsDamaged) return;
 	if (DangerTimer < DangerInMilliseconds)
@@ -40,6 +40,7 @@ void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 		InvincibilityFlashTimer = 0;
 		ToggleVisibility();
 	}
+	
 	if (InvincibilityTimer < InvincibilityInMilliseconds)
 	{
 		InvincibilityTimer += DeltaTime;
@@ -55,6 +56,13 @@ void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 void ULifeComponent::Damage()
 {
+	ACharacter83* Character = Cast<ACharacter83>(GetOwner());
+	if (Character && Character->IsBarrierUp)
+	{
+		Character->TurnOffBarrier();
+		return;
+	}
+	
 	if (IsInvincible) return;
 	if (!IsDamaged)
 	{

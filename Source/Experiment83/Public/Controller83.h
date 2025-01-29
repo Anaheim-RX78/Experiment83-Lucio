@@ -34,4 +34,7 @@ protected:
 
 	UFUNCTION()
 	void AirMove(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void UseItem(const FInputActionValue& Value);
 };
