@@ -1,5 +1,4 @@
 #include "LifeComponent.h"
-
 #include "Character83.h"
 
 ULifeComponent::ULifeComponent()
@@ -18,7 +17,7 @@ void ULifeComponent::BeginPlay()
 void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	
 	if (!IsDamaged) return;
 	if (DangerTimer < DangerInMilliseconds)
 	{
@@ -57,6 +56,7 @@ void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 void ULifeComponent::Damage()
 {
 	ACharacter83* Character = Cast<ACharacter83>(GetOwner());
+	if (Character->PowerUpInvincibility) return;
 	if (Character && Character->IsBarrierUp)
 	{
 		Character->TurnOffBarrier();

@@ -23,7 +23,7 @@ public:
 	int Attempts = 0;
 
 	UPROPERTY(EditAnywhere, Category = Level)
-	FString CurrentLevelIdentifier = "Level_01";
+	FString CurrentLevelId = "Level_01";
 
 	UPROPERTY(EditAnywhere)
 	TArray<UPowerUpData*> PowerUps;

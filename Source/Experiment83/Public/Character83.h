@@ -23,12 +23,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float MovementSpeed = 500.f;
-
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float FallSpeed = 1000.f;
-
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	UCameraComponent* Camera;
 
@@ -56,5 +50,38 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Barrier")
 	bool IsBarrierUp = false;
 
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float MovementSpeed = 500.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float FallSpeed = 1000.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float SlowerFallSpeed = 800.f;
+
+	UPROPERTY(EditAnywhere, Category = "Bounce")
+	float BounceInitialVelocity = 1000.f;
+
+	UPROPERTY(EditAnywhere, Category = "Bounce")
+	float BounceVelocity = 0.f;
+
+	UPROPERTY(EditAnywhere, Category = "Bounce")
+	FVector BounceDirection;
+
+	UPROPERTY(EditAnywhere, Category = "Bounce")
+	float BounceDecayRate = .5f;
+
+	UFUNCTION()
+	void StartBounce(FVector BounceDir);
+
+	UPROPERTY(EditAnywhere, Category = "Powerups")
+	bool PowerUpInvincibility = false;
+
+	UPROPERTY(EditAnywhere, Category = "Powerups")
+	bool CanSlowDown = false;
+
+	UPROPERTY(EditAnywhere, Category = "Powerups")
+	bool HasSlowedDown = false;
+	
 };
 

@@ -25,6 +25,8 @@ void AController83::SetupInputComponent()
 	
 	EnhancedInputComponent->BindAction(InputMap->Actions["AirMove"], ETriggerEvent::Triggered, this, &AController83::AirMove);
 	EnhancedInputComponent->BindAction(InputMap->Actions["UseItem"], ETriggerEvent::Started, this, &AController83::UseItem);
+	EnhancedInputComponent->BindAction(InputMap->Actions["SlowDown"], ETriggerEvent::Started, this, &AController83::SlowDown);
+	EnhancedInputComponent->BindAction(InputMap->Actions["SlowDown"], ETriggerEvent::Completed, this, &AController83::SpeedUp);
 }
 
 void AController83::OnPossess(APawn* InPawn)
@@ -44,4 +46,17 @@ void AController83::AirMove(const FInputActionValue& Value)
 void AController83::UseItem(const FInputActionValue& Value)
 {
 	Character83->Inventory->UseItem();
+}
+
+void AController83::SlowDown(const FInputActionValue& Value)
+{
+	if (!Character83->CanSlowDown) return;
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("SLOW DOWN"));
+	Character83->HasSlowedDown = true;
+}
+
+void AController83::SpeedUp(const FInputActionValue& Value)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("SPEED UP"));
+	Character83->HasSlowedDown = false;
 }

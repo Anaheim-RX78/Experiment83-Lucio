@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Damager.h"
 
 // Sets default values
@@ -9,11 +6,11 @@ ADamager::ADamager()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>("Capsule");
-	RootComponent = CapsuleComponent;
+	BoxComponent = CreateDefaultSubobject<UBoxComponent>("Capsule");
+	RootComponent = BoxComponent;
 
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	MeshComponent->SetupAttachment(CapsuleComponent);
+	MeshComponent->SetupAttachment(BoxComponent);
 
 }
 
@@ -21,7 +18,7 @@ ADamager::ADamager()
 void ADamager::BeginPlay()
 {
 	Super::BeginPlay();
-	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ADamager::OnOverlap);
+	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ADamager::OnOverlap);
 }
 
 // Called every frame

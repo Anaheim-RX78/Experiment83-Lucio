@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/CapsuleComponent.h"
 #include "GameFramework/Actor.h"
 #include "Character83.h"
 #include "Kismet/KismetMathLibrary.h"

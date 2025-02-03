@@ -49,7 +49,7 @@ void UInventory::AddItem(UPowerUpData* ItemData)
 			-1,
 			5.f,
 			FColor::Red,
-			TEXT("Both full")
+			TEXT("Slots are full")
 		);
 		return;
 	}
@@ -60,7 +60,7 @@ void UInventory::AddItem(UPowerUpData* ItemData)
 			-1,
 			5.f,
 			FColor::Red,
-			TEXT("Primary is full")
+			FString::Printf(TEXT("Filling secondary slot with: %s"), *ItemData->PrettyName)
 		);
 		SecondarySlot = ItemData;
 	}
@@ -70,7 +70,7 @@ void UInventory::AddItem(UPowerUpData* ItemData)
 			-1,
 			5.f,
 			FColor::Red,
-			TEXT("Filling first slot")
+			FString::Printf(TEXT("Filling first slot with: %s"), *ItemData->PrettyName)
 		);
 		PrimarySlot = ItemData;	
 	}
@@ -80,8 +80,15 @@ void UInventory::UseItem()
 {
 	if (!PrimarySlot) return;
 
+	GEngine->AddOnScreenDebugMessage(
+		-1,
+		5.f,
+		FColor::Red,
+		FString::Printf(TEXT("Using powerup: %s"), *PrimarySlot->PrettyName)
+	);
+
 	PrimarySlot->UsePowerUp(CharacterRef);
 	IsOnHold = true;
-	OnHoldTimer = PrimarySlot->PowerUpDuration;
+	OnHoldTimeSeconds = PrimarySlot->PowerUpDuration;
 }
 

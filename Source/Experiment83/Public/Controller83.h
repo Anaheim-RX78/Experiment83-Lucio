@@ -37,4 +37,8 @@ protected:
 
 	UFUNCTION()
 	void UseItem(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void SlowDown(const FInputActionValue& Value);
+	void SpeedUp(const FInputActionValue& Value);
 };

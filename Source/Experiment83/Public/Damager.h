@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character83.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "Damager.generated.h"
 
@@ -39,5 +39,5 @@ public:
 	UMeshComponent* MeshComponent;
 
 	UPROPERTY(EditAnywhere, Category="Components")
-	UCapsuleComponent* CapsuleComponent;
+	UBoxComponent* BoxComponent;
 };
