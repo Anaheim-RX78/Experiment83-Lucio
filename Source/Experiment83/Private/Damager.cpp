@@ -33,6 +33,6 @@ void ADamager::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Other
 	if (ACharacter83* Character = Cast<ACharacter83>(OtherActor))
 	{
 		Character->LifeHandler->Damage();
+		Destroy();
 	}
-	Destroy();
 }

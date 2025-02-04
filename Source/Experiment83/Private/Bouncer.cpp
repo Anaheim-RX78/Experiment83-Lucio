@@ -34,10 +34,9 @@ void ABouncer::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Other
 
 	if (!Character) return;
 
+	// Calculating the bounce direction by normalizing the horizontal component of the distance between character and bouncer
 	FVector CharacterDistance = (Character->GetActorLocation() - GetActorLocation());
-	
 	FVector BounceDirection = FVector(CharacterDistance.X, CharacterDistance.Y, 0).GetSafeNormal();
-
 	Character->StartBounce(BounceDirection);
 	
 }

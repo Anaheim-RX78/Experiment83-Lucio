@@ -39,10 +39,12 @@ void ALevelTeleporter::Tick(float DeltaTime)
 void ALevelTeleporter::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	// If the character passes the teleport, the LevelId is saved, to act as a checkpoint
 	ACharacter83* Character = Cast<ACharacter83>(OtherActor);
 	UMainInstance* Instance = Cast<UMainInstance>(GetGameInstance());
 	if (Character && Instance)
 	{
+		// Teleport the character and save LevelId
 		Character->SetActorLocation(ExitPoint);
 		Instance->CurrentLevelId = LevelId;
 	}

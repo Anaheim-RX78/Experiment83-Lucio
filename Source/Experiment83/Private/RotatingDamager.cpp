@@ -9,7 +9,7 @@ ARotatingDamager::ARotatingDamager()
 	PivotComponent->SetRelativeLocation(FVector(0, 100, 0));
 	PivotComponent->bIsEditorOnly = true;
 
-	// Set default sprite for the billboard
+	// Setting default sprite for the billboard
 	static ConstructorHelpers::FObjectFinder<UTexture2D> BillboardSprite(TEXT("/Engine/EditorResources/S_TargetPoint.S_TargetPoint"));
 	if (BillboardSprite.Succeeded())
 	{
@@ -21,7 +21,8 @@ ARotatingDamager::ARotatingDamager()
 void ARotatingDamager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	// Setting pivot for the rotation
 	PivotLocation = PivotComponent->GetComponentLocation();
 }
 
@@ -29,10 +30,12 @@ void ARotatingDamager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	float AngleRotation = DegreesPerSecond * DeltaTime;
-    
+
+	// Calculating the new position and updating the location accordingly 
 	FVector Offset = GetActorLocation() - PivotLocation;
 	FVector RotatedOffset = Offset.RotateAngleAxis(AngleRotation, FVector::UpVector);
-    
 	SetActorLocation(PivotLocation + RotatedOffset);
+	
+	// Rotating the damager to match the rotation
 	AddActorWorldRotation(FRotator(0, AngleRotation, 0));
 }

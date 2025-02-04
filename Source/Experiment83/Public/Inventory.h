@@ -5,6 +5,7 @@
 #include "Components/ActorComponent.h"
 #include "Inventory.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateUI);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EXPERIMENT83_API UInventory : public UActorComponent
@@ -43,4 +44,10 @@ public:
 
 	UFUNCTION()
 	void UseItem();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Score;
+
+	UPROPERTY(BlueprintAssignable)
+	FUpdateUI OnUpdate;
 };

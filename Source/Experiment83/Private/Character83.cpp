@@ -31,7 +31,6 @@ ACharacter83::ACharacter83()
 void ACharacter83::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCharacterMovement()->AirControl = 1.f;
 
 	// Start with disabled barrier
 	Barrier->SetHiddenInGame(true);
@@ -72,7 +71,7 @@ void ACharacter83::Tick(float DeltaTime)
 	if (BounceVelocity > 0.f)
 	{
 		// Move the character according to the bounce velocity
-		SetActorLocation(GetActorLocation() + (BounceDirection * BounceVelocity * DeltaTime));
+		SetActorLocation(GetActorLocation() + (BounceDirection * BounceVelocity * DeltaTime), true);
 
 		// Diminish the velocity until it becomes so small it's not worth calculating
 		BounceVelocity = BounceVelocity * (1.f - (BounceDecayRate * DeltaTime));
@@ -90,8 +89,12 @@ void ACharacter83::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void ACharacter83::SetMovementInput(const FVector2D& MovementVector)
 {
-	// Move Character by linear input, with zero friction and acceleration
-	SetActorLocation(GetActorLocation() + (MovementSpeed * (GetActorForwardVector() * MovementVector.Y) + (MovementSpeed * (GetActorRightVector() * MovementVector.X))));
+	// Move Character by linear input, with zero friction and no defined acceleration
+	SetActorLocation(
+		GetActorLocation() + (
+			MovementSpeed * (GetActorForwardVector() * MovementVector.Y) + 
+			MovementSpeed * (GetActorRightVector() * MovementVector.X)
+		), true);
 }
 
 void ACharacter83::TurnOnBarrier()
@@ -104,7 +107,7 @@ void ACharacter83::TurnOnBarrier()
 
 void ACharacter83::TurnOffBarrier()
 {
-	// The opposite
+	// Make Barrier invisible and disable collisions
 	Barrier->SetHiddenInGame(true);
 	Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	IsBarrierUp = false;
@@ -112,6 +115,7 @@ void ACharacter83::TurnOffBarrier()
 
 void ACharacter83::StartBounce(FVector BounceDir)
 {
+	// Initializing bounce with direction and velocity
 	BounceDirection = BounceDir;
 	BounceVelocity = BounceInitialVelocity;
 }

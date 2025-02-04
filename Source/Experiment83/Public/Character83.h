@@ -10,6 +10,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Character83.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeathHandler);
+
 UCLASS()
 class EXPERIMENT83_API ACharacter83 : public ACharacter
 {
@@ -41,47 +43,50 @@ public:
 	void TurnOnBarrier();
 	void TurnOffBarrier();
 
-	UPROPERTY(EditAnywhere, Category = "Life")
+	UPROPERTY(EditAnywhere, Category = "Life", BlueprintReadWrite)
 	ULifeComponent* LifeHandler;
 
-	UPROPERTY(EditAnywhere, Category = "Items")
+	UPROPERTY(EditAnywhere, Category = "Items", BlueprintReadWrite)
 	UInventory* Inventory;
 	
-	UPROPERTY(EditAnywhere, Category = "Barrier")
+	UPROPERTY(EditAnywhere, Category = "Barrier", BlueprintReadWrite)
 	bool IsBarrierUp = false;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, Category = "Movement", BlueprintReadWrite)
 	float MovementSpeed = 500.f;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, Category = "Movement", BlueprintReadWrite)
 	float FallSpeed = 1000.f;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, Category = "Movement", BlueprintReadWrite)
 	float SlowerFallSpeed = 800.f;
 
-	UPROPERTY(EditAnywhere, Category = "Bounce")
+	UPROPERTY(EditAnywhere, Category = "Bounce", BlueprintReadWrite)
 	float BounceInitialVelocity = 1000.f;
 
-	UPROPERTY(EditAnywhere, Category = "Bounce")
+	UPROPERTY(EditAnywhere, Category = "Bounce", BlueprintReadWrite)
 	float BounceVelocity = 0.f;
 
-	UPROPERTY(EditAnywhere, Category = "Bounce")
+	UPROPERTY(EditAnywhere, Category = "Bounce", BlueprintReadWrite)
 	FVector BounceDirection;
 
-	UPROPERTY(EditAnywhere, Category = "Bounce")
+	UPROPERTY(EditAnywhere, Category = "Bounce", BlueprintReadWrite)
 	float BounceDecayRate = .5f;
 
 	UFUNCTION()
 	void StartBounce(FVector BounceDir);
 
-	UPROPERTY(EditAnywhere, Category = "Powerups")
+	UPROPERTY(EditAnywhere, Category = "Powerups", BlueprintReadWrite)
 	bool PowerUpInvincibility = false;
 
-	UPROPERTY(EditAnywhere, Category = "Powerups")
+	UPROPERTY(EditAnywhere, Category = "Powerups", BlueprintReadWrite)
 	bool CanSlowDown = false;
 
-	UPROPERTY(EditAnywhere, Category = "Powerups")
+	UPROPERTY(EditAnywhere, Category = "Powerups", BlueprintReadWrite)
 	bool HasSlowedDown = false;
+
+	UPROPERTY(BlueprintAssignable)
+	FDeathHandler OnDeath;
 	
 };
 

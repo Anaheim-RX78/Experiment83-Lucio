@@ -22,7 +22,8 @@ void AController83::SetupInputComponent()
 
 	Subsystem->AddMappingContext(InputMap->MappingContext, 0);
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
-	
+
+	// Binding every function of the controller to an action defined in the inputmap
 	EnhancedInputComponent->BindAction(InputMap->Actions["AirMove"], ETriggerEvent::Triggered, this, &AController83::AirMove);
 	EnhancedInputComponent->BindAction(InputMap->Actions["UseItem"], ETriggerEvent::Started, this, &AController83::UseItem);
 	EnhancedInputComponent->BindAction(InputMap->Actions["SlowDown"], ETriggerEvent::Started, this, &AController83::SlowDown);
@@ -50,13 +51,12 @@ void AController83::UseItem(const FInputActionValue& Value)
 
 void AController83::SlowDown(const FInputActionValue& Value)
 {
-	if (!Character83->CanSlowDown) return;
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("SLOW DOWN"));
+	if (!Character83->CanSlowDown) return; // Only enabled during the slowdown powerup effect
 	Character83->HasSlowedDown = true;
 }
 
 void AController83::SpeedUp(const FInputActionValue& Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("SPEED UP"));
+	if (!Character83->CanSlowDown) return; // Only enabled during the slowdown powerup effect
 	Character83->HasSlowedDown = false;
 }
