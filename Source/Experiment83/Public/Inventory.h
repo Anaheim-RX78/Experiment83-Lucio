@@ -27,7 +27,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UPowerUpData* SecondarySlot = nullptr;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool IsOnHold = false;
 
 	UPROPERTY(VisibleAnywhere)

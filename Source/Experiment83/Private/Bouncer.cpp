@@ -24,7 +24,6 @@ void ABouncer::BeginPlay()
 {
 	Super::BeginPlay();
 	BouncerCollider->OnComponentBeginOverlap.AddDynamic(this, &ABouncer::OnOverlap);
-	
 }
 
 void ABouncer::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,

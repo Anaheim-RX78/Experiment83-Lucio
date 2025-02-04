@@ -11,5 +11,6 @@ enum class PowerUpType : uint8
 {
 	Invincibility,
 	Shield,
-	Break
+	Break,
+	StickDrift
 };

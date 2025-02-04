@@ -65,7 +65,11 @@ void ACharacter83::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	float CurrentFallSpeed = HasSlowedDown ? SlowerFallSpeed : FallSpeed;
-	SetActorLocation(GetActorLocation() + (FVector(0, 0, -1) * (CurrentFallSpeed) * DeltaTime));
+	SetActorLocation(
+		GetActorLocation() +
+		(FVector(0, 0, -1) * CurrentFallSpeed * DeltaTime) + // Move downwards to fall
+		(StickDriftDirection * StickDriftSpeed * DeltaTime) // Move horizontally if there's stick drift
+	);
 
 	// Bounce logic
 	if (BounceVelocity > 0.f)

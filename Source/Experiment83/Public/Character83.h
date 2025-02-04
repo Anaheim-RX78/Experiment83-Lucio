@@ -87,6 +87,12 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FDeathHandler OnDeath;
+
+	UPROPERTY(EditAnywhere, Category = "Powerups", BlueprintReadWrite)
+	FVector StickDriftDirection = FVector::ZeroVector;
+
+	UPROPERTY(EditAnywhere, Category = "Powerups", BlueprintReadWrite)
+	float StickDriftSpeed = 0.f;
 	
 };
 
